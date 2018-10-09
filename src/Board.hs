@@ -1,9 +1,7 @@
 module Board where
   
-import qualified Data.Sequence as Seq
-
-data Cell = Player1 | Player2 | Empty deriving Show
-type Board = Seq.Seq Cell
+data Cell = Player1 | Player2 | Empty deriving (Eq, Show)
+type Board = [Cell]
   
 initBoard :: Board
-initBoard = Seq.replicate 9 Empty
+initBoard = take 9 (repeat Empty)
