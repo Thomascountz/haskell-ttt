@@ -27,3 +27,35 @@ spec =  do
 
     it "returns a board with a Player Cell at index 8" $
       replaceCellAt [Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty, Empty] 8 Player1 !! 8 `shouldBe` Player1
+
+  describe "validPlacement" $ do
+    it "returns True if board at index is Empty" $
+      validPlacement [Empty] 0 `shouldBe` True
+
+    it "returns False if board at index is not Empty" $
+      validPlacement [Player1] 0 `shouldBe` False
+
+    it "returns False if board at index is out of bounds" $
+      validPlacement [Player1] 2 `shouldBe` False
+
+  describe "win" $ do
+    it "returns false if the board does not have a winning combination" $
+      win [Player1, Empty, Empty, Player2, Empty, Empty, Player1, Player2, Empty] `shouldBe` False
+
+    it "returns true if board has a winning row combination of Player1" $
+      win [Player1, Player1, Player1, Empty, Empty, Empty, Empty, Empty, Empty] `shouldBe` True 
+
+    it "returns true if board has a winning row combination of Player2" $
+      win [Player2, Player2, Player2, Empty, Empty, Empty, Empty, Empty, Empty] `shouldBe` True
+
+    it "returns true if board has a winning column combination of Player1" $
+      win [Player2, Player2, Player2, Empty, Empty, Empty, Empty, Empty, Empty] `shouldBe` True
+
+    it "returns true if board has a winning column combination of Player2" $
+      win [Player2, Player2, Player2, Empty, Empty, Empty, Empty, Empty, Empty] `shouldBe` True
+
+    it "returns true if board has a winning diagonal combination of Player1" $
+      win [Player2, Player2, Player2, Empty, Empty, Empty, Empty, Empty, Empty] `shouldBe` True
+
+    it "returns true if board has a winning diagonal combination of Player2" $
+      win [Player2, Player2, Player2, Empty, Empty, Empty, Empty, Empty, Empty] `shouldBe` True
