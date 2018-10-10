@@ -59,3 +59,10 @@ spec =  do
 
     it "returns true if board has a winning diagonal combination of Player2" $
       win [Player2, Player2, Player2, Empty, Empty, Empty, Empty, Empty, Empty] `shouldBe` True
+
+  describe "tie" $ do
+    it "returns false if the board does not have a tie combination" $
+      tie [Player1, Player1, Player1, Empty, Empty, Empty, Empty, Empty, Empty] `shouldBe` False
+
+    it "returns true if the board does have a tie combination" $ 
+      tie [Player1, Player1, Player2, Player2, Player2, Player1, Player1, Player2, Player1] `shouldBe` True

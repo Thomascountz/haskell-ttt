@@ -34,3 +34,6 @@ win board = case board of
   [_, _, Player1, _, Player1, _, Player1, _, _] -> True
   [_, _, Player2, _, Player2, _, Player2, _, _] -> True
   _ -> False
+
+tie :: Board -> Bool
+tie board = not (win board) && not (any (\x -> x == Empty) board)
