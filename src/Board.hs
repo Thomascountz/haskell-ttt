@@ -3,8 +3,8 @@ module Board where
 data Cell = Player1 | Player2 | Empty deriving (Eq, Show)
 type Board = [Cell]
   
-initBoard :: Board
-initBoard = take 9 (repeat Empty)
+initBoard :: Int -> Board
+initBoard size = take (size ^ 2) (repeat Empty)
 
 winSize :: Board -> Int
 winSize board = round (sqrt (fromIntegral (length board)))
@@ -25,13 +25,13 @@ win:: Board -> Bool
 win board = or (map (winningSpaces board) (winningIndices board))
 
 winningSpaces :: Board -> [Int] -> Bool
-winningSpaces board winningCombo = allTheSameAndNotEmpty (map (\i -> (board !! i)) (winningCombo))
-
-allTheSameAndNotEmpty :: [Cell] -> Bool
-allTheSameAndNotEmpty cells = not (head cells == Empty) && and (map (\x -> x == head cells) (tail cells))
+winningSpaces board indicies = allTheSameAndNotEmpty (map (\i -> (board !! i)) (indicies))
 
 winningIndices :: Board -> [[Int]]
 winningIndices board = winningRows board ++ winningCols board ++ winningDiags board
+
+allTheSameAndNotEmpty :: [Cell] -> Bool
+allTheSameAndNotEmpty cells = not (head cells == Empty) && and (map (\x -> x == head cells) (tail cells))
 
 winningRows :: Board -> [[Int]]
 winningRows board = map (\start -> take (winSize board) [start..]) (rowStarts board)

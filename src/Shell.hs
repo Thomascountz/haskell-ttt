@@ -3,7 +3,7 @@ module Shell where
 import Board
 
 run :: IO ()
-run = playRound initBoard Player1
+run = playRound (initBoard 3) Player1
 
 playRound :: Board -> Cell-> IO ()
 playRound board player = do

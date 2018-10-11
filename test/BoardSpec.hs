@@ -7,11 +7,11 @@ import Board
 spec :: Spec
 spec =  do
   describe "initBoard" $ do
-    it "returns a board with a length of 9" $
-      length initBoard `shouldBe` 9
+    it "returns a square board of the given length" $
+      length (initBoard 3) `shouldBe` 9
 
     it "returns a board full of Empty" $
-      and (map (\cell -> cell == Empty) initBoard) `shouldBe` True
+      and (map (\cell -> cell == Empty) (initBoard 3)) `shouldBe` True
 
   describe "replaceCellAt" $ do
     it "returns an empty board if an empty board is given" $
@@ -70,4 +70,4 @@ spec =  do
 
   describe "winningCombos" $ do
     it "returns a list of winning combination for a given board" $
-      sort (winningIndices initBoard) `shouldBe` sort [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [2, 4, 6], [0, 4, 8]]
+      sort (winningIndices (initBoard 3)) `shouldBe` sort [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [2, 4, 6], [0, 4, 8]]
