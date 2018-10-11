@@ -57,14 +57,12 @@ switchPlayer player =
     Player2 -> Player1
 
 cellStr :: Cell -> String
-cellStr player = 
-  case player of
-    Empty -> "-"
-    Player1 -> "X"
-    Player2 -> "O"
+cellStr Player1 = "X"
+cellStr Player2 = "O"
+cellStr Empty = "-"
 
 boardStr :: Board -> String
-boardStr board = do
+boardStr board = 
   ("┌───┬───┬───┐\n" )
   ++ "| " ++ (cellStr (board !! 0) ++ " | " ++ cellStr (board !! 1) ++ " | " ++ cellStr (board !! 2)) ++ " |\n"
   ++ "│───│───│───│\n"
