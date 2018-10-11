@@ -37,3 +37,13 @@ win board = case board of
 
 tie :: Board -> Bool
 tie board = not (win board) && not (any (\x -> x == Empty) board)
+
+-- FIXME - returns true when a wining combination of Empty is found
+-- win:: Board -> Bool
+-- win board = or (map (winCombo board) [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [2, 4, 6], [0, 4, 8]])
+
+-- winCombo :: Board -> [Int] -> Bool
+-- winCombo board winningCombo = allTheSame (map (\i -> (board !! i)) (winningCombo))
+
+-- allTheSame :: [Cell] -> Bool
+-- allTheSame cells = and $ map (== head cells) (tail cells)
