@@ -6,8 +6,8 @@ type Board = [Cell]
 initBoard :: Int -> Board
 initBoard size = take (size ^ 2) (repeat Empty)
 
-winSize :: Board -> Int
-winSize board = round (sqrt (fromIntegral (length board)))
+sideSize :: Board -> Int
+sideSize board = round (sqrt (fromIntegral (length board)))
 
 replaceCellAt :: Board -> Int -> Cell -> Board
 replaceCellAt [] _ _ = []
@@ -34,18 +34,18 @@ allTheSameAndNotEmpty :: [Cell] -> Bool
 allTheSameAndNotEmpty cells = not (head cells == Empty) && and (map (\x -> x == head cells) (tail cells))
 
 winningRows :: Board -> [[Int]]
-winningRows board = map (\start -> take (winSize board) [start..]) (rowStarts board)
+winningRows board = map (\start -> take (sideSize board) [start..]) (rowStarts board)
 
 winningCols :: Board -> [[Int]]
-winningCols board = map (\start -> take (winSize board) [start, start + (winSize board)..]) (colStarts board)
+winningCols board = map (\start -> take (sideSize board) [start, start + (sideSize board)..]) (colStarts board)
 
 winningDiags :: Board -> [[Int]]
-winningDiags board = take (winSize board) [0, (winSize board + 1)..]
-                     : take (winSize board) [winSize board - 1, ((winSize board - 1) ^ 2)..]
+winningDiags board = take (sideSize board) [0, (sideSize board + 1)..]
+                     : take (sideSize board) [sideSize board - 1, ((sideSize board - 1) ^ 2)..]
                      : []
 
 rowStarts :: Board -> [Int]
-rowStarts board = take (winSize board) [0, (0 + winSize board)..]
+rowStarts board = take (sideSize board) [0, (0 + sideSize board)..]
 
 colStarts :: Board -> [Int]
-colStarts board = take (winSize board) [0..]
+colStarts board = take (sideSize board) [0..]
