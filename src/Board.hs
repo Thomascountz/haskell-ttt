@@ -21,35 +21,31 @@ validPlacement board index = index < length board && board !! index == Empty
 tie :: Board -> Bool
 tie board = not (win board) && not (any (\x -> x == Empty) board)
 
-winningCombos :: Board -> [[Int]]
-winningCombos board = winningRows board ++ winningCols board ++ winningDiags board
+win:: Board -> Bool
+win board = or (map (winningSpaces board) (winningIndices board))
+
+winningSpaces :: Board -> [Int] -> Bool
+winningSpaces board winningCombo = allTheSameAndNotEmpty (map (\i -> (board !! i)) (winningCombo))
+
+allTheSameAndNotEmpty :: [Cell] -> Bool
+allTheSameAndNotEmpty cells = not (head cells == Empty) && and (map (\x -> x == head cells) (tail cells))
+
+winningIndices :: Board -> [[Int]]
+winningIndices board = winningRows board ++ winningCols board ++ winningDiags board
 
 winningRows :: Board -> [[Int]]
-winningRows board = map (\start -> combination start 1 (winSize board)) (rowStarts board)
-
-rowStarts :: Board -> [Int]
-rowStarts board = combination 0 (winSize board) (winSize board)
+winningRows board = map (\start -> take (winSize board) [start..]) (rowStarts board)
 
 winningCols :: Board -> [[Int]]
-winningCols board = map (\start -> combination start (winSize board) (winSize board)) (colStarts board)
-
-colStarts :: Board -> [Int]
-colStarts board = combination 0 1 (winSize board)
+winningCols board = map (\start -> take (winSize board) [start, start + (winSize board)..]) (colStarts board)
 
 winningDiags :: Board -> [[Int]]
-winningDiags board = combination 0 (winSize board + 1) (winSize board)
-                     : combination (winSize board - 1) (winSize board - 1) (winSize board)
+winningDiags board = take (winSize board) [0, (winSize board + 1)..]
+                     : take (winSize board) [winSize board - 1, ((winSize board - 1) ^ 2)..]
                      : []
 
-combination :: Int -> Int -> Int -> [Int]
-combination start step size = take size (iterate (\x -> x + step) start)
+rowStarts :: Board -> [Int]
+rowStarts board = take (winSize board) [0, (0 + winSize board)..]
 
--- FIXME - returns true when a wining combination of Empty is found
-win:: Board -> Bool
-win board = or (map (winCombo board) (winningCombos board))
--- 
-winCombo :: Board -> [Int] -> Bool
-winCombo board winningCombo = allTheSame (map (\i -> (board !! i)) (winningCombo))
--- 
-allTheSame :: [Cell] -> Bool
-allTheSame cells = not (head cells == Empty) && and (map (\x -> x == head cells) (tail cells))
+colStarts :: Board -> [Int]
+colStarts board = take (winSize board) [0..]
