@@ -12,6 +12,10 @@ spec =  do
 
     it "returns a board full of Empty" $
       and (map (\cell -> cell == Empty) (initBoard 3)) `shouldBe` True
+  
+  describe "size" $ do
+    it "returns the size of the board" $
+      size (initBoard 3) `shouldBe` 3
 
   describe "replaceCellAt" $ do
     it "returns an empty board if an empty board is given" $
@@ -71,3 +75,24 @@ spec =  do
   describe "winningCombos" $ do
     it "returns a list of winning combination for a given board" $
       sort (winningIndices (initBoard 3)) `shouldBe` sort [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [2, 4, 6], [0, 4, 8]]
+
+  describe "switchPlayer" $ do
+    it "returns Player2 when given Player1" $
+      switchPlayer Player1 `shouldBe` Player2
+
+    it "returns Player1 when given Player2" $
+      switchPlayer Player2 `shouldBe` Player1
+
+  describe "cellStr" $ do
+    it "returns 'X' for Player1" $
+      cellStr Player1  `shouldBe` "X"
+
+    it "returns 'O' for Player2" $
+      cellStr Player2  `shouldBe` "O"
+
+    it "returns '-' for Empty" $
+      cellStr Empty  `shouldBe` "-"
+
+  describe "boardStr" $ do
+    it "returns a string representation of a 3x3 board" $
+      boardStr (initBoard 3) `shouldBe` "\9484\9472\9472\9472\9516\9472\9472\9472\9516\9472\9472\9472\9488\n| - | - | - |\n\9474\9472\9472\9472\9474\9472\9472\9472\9474\9472\9472\9472\9474\n| - | - | - |\n\9474\9472\9472\9472\9474\9472\9472\9472\9474\9472\9472\9472\9474\n| - | - | - |\n\9492\9472\9472\9472\9524\9472\9472\9472\9524\9472\9472\9472\9496"
