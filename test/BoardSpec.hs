@@ -1,6 +1,7 @@
 module BoardSpec (spec) where
 
 import Test.Hspec
+import Data.List
 import Board
 
 spec :: Spec
@@ -66,3 +67,7 @@ spec =  do
 
     it "returns true if the board does have a tie combination" $ 
       tie [Player1, Player1, Player2, Player2, Player2, Player1, Player1, Player2, Player1] `shouldBe` True
+
+  describe "winningCombos" $ do
+    it "returns a list of winning combination for a given board" $
+      sort (winningCombos initBoard) `shouldBe` sort [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [2, 4, 6], [0, 4, 8]]
