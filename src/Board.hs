@@ -66,10 +66,8 @@ cellStr Empty = "-"
 
 boardStr :: Board -> String
 boardStr board = 
-  "┌───┬───┬───┐\n" 
-  ++ "| " ++ (cellStr (board !! 0) ++ " | " ++ cellStr (board !! 1) ++ " | " ++ cellStr (board !! 2)) ++ " |\n"
-  ++ "│───│───│───│\n"
-  ++ "| " ++ (cellStr (board !! 3) ++ " | " ++ cellStr (board !! 4) ++ " | " ++ cellStr (board !! 5)) ++ " |\n"
-  ++ "│───│───│───│\n"
-  ++ "| " ++ (cellStr (board !! 6) ++ " | " ++ cellStr (board !! 7) ++ " | " ++ cellStr (board !! 8)) ++ " |\n"
-  ++ "└───┴───┴───┘"
+   "\n " ++ (cellStr (board !! 0) ++ " | " ++ cellStr (board !! 1) ++ " | " ++ cellStr (board !! 2)) ++ " \n"
+  ++ "───│───│───\n"
+  ++ " " ++ (cellStr (board !! 3) ++ " | " ++ cellStr (board !! 4) ++ " | " ++ cellStr (board !! 5)) ++ " \n"
+  ++ "───│───│───\n"
+  ++ " " ++ (cellStr (board !! 6) ++ " | " ++ cellStr (board !! 7) ++ " | " ++ cellStr (board !! 8)) ++ " \n"

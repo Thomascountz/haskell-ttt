@@ -95,11 +95,10 @@ spec =  do
 
   describe "boardStr" $ 
     it "returns a string representation of a 3x3 board" $
-      boardStr (initBoard 3) `shouldBe` "\
-      \┌───┬───┬───┐\n\
-      \| - | - | - |\n\
-      \│───│───│───│\n\
-      \| - | - | - |\n\
-      \│───│───│───│\n\
-      \| - | - | - |\n\
-      \└───┴───┴───┘"
+      boardStr (initBoard 3) `shouldBe` "\n\
+      \ - | - | - \n\
+      \───│───│───\n\
+      \ - | - | - \n\
+      \───│───│───\n\
+      \ - | - | - \n\
+      \"
