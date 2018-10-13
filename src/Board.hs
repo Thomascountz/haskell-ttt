@@ -8,6 +8,7 @@ initBoard size = replicate (size ^ 2) Empty
 
 size :: Board -> Int
 -- size = round . sqrt . fromIntegral . length
+-- size board = round $ sqrt $ fromIntegral $ length board
 size board = round (sqrt (fromIntegral (length board)))
 
 replaceCellAt :: Board -> Int -> Cell -> Board
