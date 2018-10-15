@@ -1,5 +1,7 @@
 module Board where
   
+import Data.List
+
 data Cell = Player1 | Player2 | Empty deriving (Eq, Show)
 type Board = [Cell]
   
@@ -58,6 +60,36 @@ switchPlayer player =
   case player of
     Player1 -> Player2
     Player2 -> Player1
+
+player :: Board -> Cell
+player s = if odd (length (filter (==Empty) s)) then Player1 else Player2
+
+actions :: Board -> [Int]
+actions = elemIndices Empty
+
+result :: Board -> Int -> Cell -> Board
+result [] _ _= []
+result s a player
+  | a == 0 = player:tail s
+  | otherwise = head s:result (tail s) (a - 1) player
+
+terminal :: Board -> Bool
+terminal s = tie s || win s
+
+utility :: Board -> Int
+utility s 
+  | terminal s = 0
+  | tie s = 0
+  | win s && player s == Player1 = 1
+  | win s && player s == Player2 = -1
+
+minimax :: Board -> Int
+minimax s = if terminal s
+            then utility s
+            else case player s of
+              Player1 -> snd (minimumBy (\(a, _) (b, _) -> compare a b) (zip (map (\a -> minimax (result s a (player s))) (actions s)) (actions s)))
+              Player2 -> snd (maximumBy (\(a, _) (b, _) -> compare a b) (zip (map (\a -> minimax (result s a (player s))) (actions s)) (actions s)))
+
 
 cellStr :: Cell -> String
 cellStr Player1 = "X"
